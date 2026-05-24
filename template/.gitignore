@@ -1,0 +1,39 @@
+# Mantle defaults
+
+# Runtime artifacts
+raw/
+out/
+runs/
+brain/raw/
+brain/out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Node / pnpm
+node_modules/
+.pnpm-store/
+dist/
+build/
+.next/
+.vite/
+
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log

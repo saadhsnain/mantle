@@ -1,0 +1,18 @@
+# Research project config. Single source of truth for runtime knobs.
+# Keep it flat. No per-environment overrides.
+
+queries:
+  - <query 1>
+  - <query 2>
+
+# Target counts
+leads_goal: 1000
+leads_per_run: 100
+
+# Runtime
+proxy: ""           # e.g. "http://user:pass@host:port"
+headless: true
+fast: false
+
+# Output
+output_dir: runs    # each execution writes to runs/<timestamp>_<mode>/

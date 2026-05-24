@@ -1,0 +1,18 @@
+---
+description: Mantle harness — points Cursor at the canonical AGENTS.md
+alwaysApply: true
+---
+
+# Cursor
+
+This project uses the **Mantle** harness. The canonical agent spec is `AGENTS.md` at the repo root.
+
+Read `AGENTS.md` first. It is self-contained and describes:
+
+- Brain-first lookup (`brain/<scope>/compiled-truth.md` + `timeline.md`)
+- Repo brain conventions (four-file scopes, append-only timelines)
+- Changelog discipline (`scripts/log-change.sh` after major changes)
+- Fat skills, thin harness (procedures live in `skills/`)
+- Stack defaults (inherited from `~/.claude/CLAUDE.md` if available)
+
+Do not duplicate guidance here. If a Cursor-specific override is ever needed, add it as a separate rule file, not to this one.
