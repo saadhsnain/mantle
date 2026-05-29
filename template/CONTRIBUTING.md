@@ -21,6 +21,6 @@ For Node projects, use the scripts in `package.json`.
 ## Standards
 
 - `AGENTS.md` is the canonical agent guide.
-- Keep `brain/project/compiled-truth.md` current when architecture or product truth changes.
+- Keep `README.md` current when architecture or product truth changes; record *why* in `DECISIONS.md`.
 - Append material changes to `CHANGELOG.md` with `scripts/log-change.sh`.
 - Put repeatable procedures in `skills/`.

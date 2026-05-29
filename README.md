@@ -6,7 +6,7 @@ A small, durable scaffold generator for agent-led projects.
 
 - **Agent-agnostic.** `AGENTS.md` is the canonical spec. Claude, Codex, Cursor, KiloCode, OpenCode, DeepSeek, Kimi — all read the same file. Per-tool entry points (`CLAUDE.md`, `.codex/AGENTS.md`, etc.) are tiny redirects.
 - **Fat skills, thin harness.** Posture in `AGENTS.md`; procedures in `skills/`. No orchestration creep.
-- **Brain-first.** Project knowledge lives in `brain/` as `compiled-truth.md` + append-only `timeline.md`. Repo truth beats agent memory.
+- **Repo-first.** Project knowledge lives in flat docs: `README.md` (current state) + append-only `CHANGELOG.md` (what changed) + ADR-style `DECISIONS.md` (why). Repo truth beats agent memory.
 - **Boring beats clever.** Markdown and small shell scripts. No placeholders, no symlinks.
 
 ## How to use
@@ -36,13 +36,13 @@ scripts/init.sh --name "Plain Project" --variant none
 | `template/` | Base files copied into every generated project. |
 | `variants/` | Optional shallow overlays: `research`, `python`, `react-vite`, `nextjs`. |
 | `scripts/log-change.sh` | Changelog writer used by Mantle itself and copied into generated projects. |
-| `AGENTS.md`, `CHANGELOG.md`, `FUTURE.md`, `CONTRIBUTING.md` | Mantle's own project docs. Generated projects receive their own versions from `template/`. |
+| `AGENTS.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`, `CONTRIBUTING.md` | Mantle's own project docs. Generated projects receive their own versions from `template/`. |
 
 ## Variants
 
 Each `variants/<name>/` is a shallow overlay consumed by `scripts/init.sh`. Pick one or none.
 
-- **`research/`** — for scrapers, data pipelines, investigative projects. Ships `session-log.md`, `config.yaml`, `runs/` pattern.
+- **`research/`** — for scrapers, data pipelines, investigative projects. Ships `SESSION-LOG.md`, `config.yaml`, `runs/` pattern.
 - **`python/`** — minimal Python package skeleton with `pyproject.toml`, `src/`, and `tests/`.
 - **`react-vite/`** — minimal Vite + shadcn + Tailwind v4 skeleton.
 - **`nextjs/`** — minimal App Router skeleton.
@@ -70,8 +70,7 @@ You can still copy a variant by hand for an existing project. Each `variants/<na
 A generated project includes:
 
 - agent entrypoints (`AGENTS.md`, `CLAUDE.md`, `.codex/`, `.cursor/`, `.kilocode/`, `.opencode/`)
-- repo brain (`brain/project/`)
-- changelog and future-work guard (`CHANGELOG.md`, `FUTURE.md`)
+- repo docs (`README.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`)
 - shared changelog script (`scripts/log-change.sh`)
 - selected stack files from `variants/<name>/`
 

@@ -163,7 +163,7 @@ apply_variant() {
       fi
       ;;
     research)
-      copy_file "$variant_dir/session-log.md" "$TARGET/session-log.md"
+      copy_file "$variant_dir/SESSION-LOG.md" "$TARGET/SESSION-LOG.md"
       copy_file "$variant_dir/config.yaml" "$TARGET/config.yaml"
       mkdir -p "$TARGET/runs"
       ;;

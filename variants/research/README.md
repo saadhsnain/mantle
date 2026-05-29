@@ -4,7 +4,7 @@ For scrapers, data pipelines, investigative or research-heavy projects. Inspired
 
 ## What this variant adds
 
-- `session-log.md` — running history of every investigative session. What was tried, what failed, what was decided. Lives at repo root.
+- `SESSION-LOG.md` — running history of every investigative session. What was tried, what failed, what was decided. Lives at repo root.
 - `config.yaml` — single YAML config for runtime knobs (queries, targets, proxy, headless flags). Keep it flat; no per-environment overrides.
 - `runs/` directory pattern — each execution writes to `runs/YYYYMMDD_HHMMSS_<mode>/` with its own logs and outputs. Already in `.gitignore`.
 
@@ -13,7 +13,7 @@ For scrapers, data pipelines, investigative or research-heavy projects. Inspired
 Manual. From this folder, copy:
 
 ```bash
-cp variants/research/session-log.md ./
+cp variants/research/SESSION-LOG.md ./
 cp variants/research/config.yaml ./
 mkdir -p runs   # gitignored already
 ```
@@ -27,6 +27,6 @@ Delete `variants/` after you've copied what you need.
 A change is done when:
 
 - The script runs end-to-end on a small input without errors.
-- New behavior is recorded in `session-log.md` (what was tried, what worked).
+- New behavior is recorded in `SESSION-LOG.md` (what was tried, what worked).
 - Material changes are in `CHANGELOG.md` via `scripts/log-change.sh`.
-- The brain (`brain/project/compiled-truth.md`) reflects current architecture if it shifted.
+- `README.md` reflects current architecture if it shifted; any decision is recorded in `DECISIONS.md`.

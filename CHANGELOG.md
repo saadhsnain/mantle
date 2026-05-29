@@ -19,6 +19,18 @@ Use `scripts/log-change.sh` for canonical writes — it reuses same-day same-top
 
 ---
 
+## 2026-05-29 — brain consolidation
+
+### Added
+- DECISIONS.md (ADR-style, append-only) as the canonical 'why' record; template/DECISIONS.md ships token-stamped ADR-0001
+
+### Changed
+- AGENTS.md: 'Brain-first lookup' -> 'Repo-first lookup'; brain conventions replaced with flat repo-doc set (README/CHANGELOG/decisions/FUTURE)
+- redirect + convenience docs (CLAUDE.md, .cursor rules, README, CONTRIBUTING, FUTURE, research variant) repointed from brain to repo docs
+
+### Removed
+- brain/ folder (compiled-truth.md, timeline.md, open-questions.md, linked.md) from root and template; brain/raw + brain/out from .gitignore and the Stop-hook path filter
+
 ## 2026-05-24 — production scaffold layout
 
 ### Added

@@ -9,8 +9,8 @@ This project uses the **Mantle** harness. The canonical agent spec is `AGENTS.md
 
 Read `AGENTS.md` first. It is self-contained and describes:
 
-- Brain-first lookup (`brain/<scope>/compiled-truth.md` + `timeline.md`)
-- Repo brain conventions (four-file scopes, append-only timelines)
+- Repo-first lookup (`README.md`, then `CHANGELOG.md`, then `DECISIONS.md`)
+- Repo docs (append-only `CHANGELOG.md` + ADR-style `DECISIONS.md`)
 - Changelog discipline (`scripts/log-change.sh` after major changes)
 - Fat skills, thin harness (procedures live in `skills/`)
 - Stack defaults (inherited from `~/.claude/CLAUDE.md` if available)

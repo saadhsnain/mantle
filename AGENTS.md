@@ -15,56 +15,42 @@ Mantle's source layout:
 - `scripts/init.sh` creates downstream projects.
 - `template/` contains the base files copied into every generated project.
 - `variants/` contains optional stack overlays.
-- Root docs (`README.md`, `AGENTS.md`, `CHANGELOG.md`, `FUTURE.md`, `CONTRIBUTING.md`) describe Mantle itself.
+- Root docs (`README.md`, `AGENTS.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`, `CONTRIBUTING.md`) describe Mantle itself.
 
 Two stable principles:
 
 - **Fat skills, thin harness.** This file describes *posture*. Procedures live in `skills/`. Don't bloat the harness.
-- **Brain-first lookup.** Repo brain truth beats agent memory. Always.
+- **Repo-first lookup.** Repo docs beat agent memory. Always.
 
 ---
 
-## 2. Brain-first lookup
+## 2. Repo-first lookup
 
-Before answering any question about a scope (the project itself, a sub-domain, a tenant, a feature area), load:
+Before answering any question about the project, load, in order:
 
-1. `brain/<scope>/compiled-truth.md` — current synthesized truth
-2. Recent entries in `brain/<scope>/timeline.md`
-3. `brain/<scope>/open-questions.md` if the question is ambiguous
+1. `README.md` — current synthesized state (architecture, overview).
+2. Recent entries in `CHANGELOG.md` — what changed lately.
+3. `DECISIONS.md` — *why* things are the way they are; check here before reversing a decision.
 
-If you don't know which scope applies, start with `brain/project/`. That's the default.
-
-Agent memory is useful for orientation. The brain file is the source of truth.
+Agent memory is useful for orientation. The repo docs are the source of truth.
 
 ---
 
-## 3. Repo brain conventions
+## 3. Repo docs
 
-The brain is a folder of *scopes*. Each scope is one folder with four files.
+Four flat files carry project knowledge. No `brain/` folder.
 
-```
-brain/
-└── project/         # Default scope, always present
-    ├── compiled-truth.md
-    ├── timeline.md
-    ├── open-questions.md
-    └── linked.md
-```
-
-**File roles:**
-
-- **`compiled-truth.md`** — Synthesized current state. May be rewritten when grounded in Timeline evidence. Carries `last_reviewed: YYYY-MM-DD` in frontmatter; bump it on every meaningful rewrite. Cosmetic edits don't count.
-- **`timeline.md`** — Append-only dated log. Format: `**YYYY-MM-DD** — observation. Source: <ref>`. Older entries must not be edited or deleted.
-- **`open-questions.md`** — Append-only list of unresolved ambiguity. Resolved questions move into Compiled Truth or get closed with a Timeline entry.
-- **`linked.md`** — Mirrors references from Timeline entries (URLs, file paths, related scopes).
+- **`README.md`** — Synthesized current state: overview, architecture, glossary. Rewritten freely as the project evolves.
+- **`CHANGELOG.md`** — Append-only dated log of what changed. Newest at top. Older entries are never edited or deleted. (See §4.)
+- **`DECISIONS.md`** — Append-only, ADR-style record of *why*. Each decision is numbered (`ADR-NNNN`) and immutable once **Accepted**: to change a decision, append a new entry and flip the old one's status to `Superseded by ADR-NNNN`. Open questions live here as `Status: Proposed` entries — a pending decision, resolved by flipping status, not by deletion.
+- **`FUTURE.md`** — Forward-looking ideas, guarded by admission rules. Not a commitment list.
 
 **Rules:**
 
-1. Timelines are append-only. Never edit or delete older entries.
-2. Compiled Truth may be rewritten when Timeline evidence shows drift. Bump `last_reviewed`.
-3. Unresolved ambiguity → `open-questions.md`. Don't guess.
-4. New scopes are added by creating `brain/<new-scope>/` with the same four files as `brain/project/`.
-5. If a write doesn't fit cleanly into one of the four files, it almost always belongs in Timeline.
+1. `CHANGELOG.md` and `DECISIONS.md` are append-only. Never edit or delete older entries.
+2. `README.md` may be rewritten freely when the architecture or product truth changes.
+3. Unresolved ambiguity → a `Proposed` entry in `DECISIONS.md`. Don't guess.
+4. Multi-scope projects use `##`-level scope headings inside `CHANGELOG.md` / `DECISIONS.md`, not separate folders.
 
 ---
 
@@ -141,9 +127,8 @@ Mantle itself is the source generator. Downstream projects should be clean scaff
 
 ## 9. What agents must NOT do
 
-- Edit or delete older Timeline entries.
-- Rewrite Compiled Truth without grounding in Timeline evidence.
-- Resolve Open Questions unilaterally when the resolution is a judgment call — flag and ask.
-- Bump `last_reviewed` for cosmetic edits.
+- Edit or delete older `CHANGELOG.md` entries.
+- Edit or delete an **Accepted** `DECISIONS.md` entry — supersede it with a new ADR instead.
+- Resolve a `Proposed` decision unilaterally when the resolution is a judgment call — flag and ask.
 - Add new top-level automation beyond `scripts/init.sh` without checking `FUTURE.md` admission rules.
 - Skip the changelog after a major change.

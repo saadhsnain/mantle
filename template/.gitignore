@@ -4,8 +4,6 @@
 raw/
 out/
 runs/
-brain/raw/
-brain/out/
 
 # Environment
 .env

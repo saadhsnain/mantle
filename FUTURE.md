@@ -22,7 +22,7 @@ If a proposal fails any rule, it lives here as an idea, not in the template.
 
 - **Symlink-based redirects.** Fails rule 4 — symlinks break on copy across filesystems and on Windows.
 - **Placeholder substitution (`{{PROJECT_NAME}}`).** Fails rule 4 — generated projects should receive concrete names at creation time.
-- **Notion sync** (mirror brain Timeline to Notion). Tool-specific, fails rule 1 unless implemented as an optional skill.
+- **Notion sync** (mirror `CHANGELOG.md` / `DECISIONS.md` to Notion). Tool-specific, fails rule 1 unless implemented as an optional skill.
 - **CI workflows** (lint, typecheck on PR). Project-specific, not template-shaped — would live in variants if anywhere.
 - **Telemetry / changelog summarizer agent.** Fails rule 2 — that's a skill, not harness.
 - **Supabase / Apify MCP wired by default.** Fails rule 5 — needs project-specific config. Stays in `.env.example` as snippets.

@@ -15,10 +15,10 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
   exit 0
 fi
 
-# Check whether anything outside ignored / brain-runtime paths changed
+# Check whether anything outside ignored / runtime paths changed
 changed=$(git status --porcelain 2>/dev/null \
   | awk '{print $2}' \
-  | grep -vE '^(brain/raw/|brain/out/|runs/|out/|raw/|\.env|node_modules/)' \
+  | grep -vE '^(runs/|out/|raw/|\.env|node_modules/)' \
   || true)
 
 if [ -z "$changed" ]; then
