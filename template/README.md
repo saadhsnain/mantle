@@ -19,3 +19,4 @@ Edit this section with the project's real architecture, overview, and glossary. 
 - `AGENTS.md` is the canonical agent guide.
 - This `README.md` holds current project truth; `DECISIONS.md` records *why* (append-only, ADR-style).
 - `scripts/log-change.sh` records material changes in `CHANGELOG.md`.
+- `scripts/check.sh` runs baseline scaffold hygiene checks; stack-specific checks belong above.

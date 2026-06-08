@@ -1,81 +1,102 @@
 # Mantle
 
-A small, durable scaffold generator for agent-led projects.
+Mantle is a small scaffold generator for agent-led projects. It gives new repos a durable operating harness: one canonical agent guide, flat project docs, a changelog writer, a skill registry, and optional stack overlays.
 
-## Philosophy
+Mantle is not an application framework. It is a repo-shape generator.
 
-- **Agent-agnostic.** `AGENTS.md` is the canonical spec. Claude, Codex, Cursor, KiloCode, OpenCode, DeepSeek, Kimi — all read the same file. Per-tool entry points (`CLAUDE.md`, `.codex/AGENTS.md`, etc.) are tiny redirects.
-- **Fat skills, thin harness.** Posture in `AGENTS.md`; procedures in `skills/`. No orchestration creep.
-- **Repo-first.** Project knowledge lives in flat docs: `README.md` (current state) + append-only `CHANGELOG.md` (what changed) + ADR-style `DECISIONS.md` (why). Repo truth beats agent memory.
-- **Boring beats clever.** Markdown and small shell scripts. No placeholders, no symlinks.
+## Principles
 
-## How to use
+- **Agent-agnostic.** `AGENTS.md` is canonical. Claude, Codex, Cursor, KiloCode, OpenCode, DeepSeek, Kimi, and unknown future agents all read the same contract.
+- **Repo-first.** Current truth lives in `README.md`; material history lives in `CHANGELOG.md`; rationale lives in `DECISIONS.md`.
+- **Fat skills, thin harness.** `AGENTS.md` describes posture. Repeatable procedures live in `skills/`.
+- **Clean generated output.** Downstream projects receive a focused scaffold, not Mantle's source tree.
+- **Boring beats clever.** Markdown and small shell scripts. No symlinks, daemons, or placeholder-heavy orchestration.
+
+## Quick Start
 
 ```bash
-cd mantle
+cd /Users/saad/code/mantle
 scripts/init.sh --name "My Project" --slug my-project --variant python
 ```
 
-This creates `../my-project` as a clean downstream project: no Mantle README, no Mantle changelog history, no `variants/` directory, no `scripts/init.sh`, and no source-template-only instructions.
+This creates `../my-project` as a clean downstream project.
 
 Supported variants:
 
 ```bash
-scripts/init.sh --name "Research Bot" --variant research
+scripts/init.sh --name "Plain Project" --variant none
 scripts/init.sh --name "Python Tool" --variant python
+scripts/init.sh --name "Research Bot" --variant research
 scripts/init.sh --name "Vite App" --variant react-vite
 scripts/init.sh --name "Next App" --variant nextjs
-scripts/init.sh --name "Plain Project" --variant none
 ```
 
-## What's in the box
+Useful flags:
+
+```bash
+scripts/init.sh --name "My App" --slug my-app --target "../my-app" --variant react-vite
+scripts/init.sh --name "Scratch" --variant none --target "/tmp/scratch" --no-git
+```
+
+## Source Layout
 
 | Path | Purpose |
 |---|---|
-| `scripts/init.sh` | Creates clean downstream projects from `template/` plus a variant overlay. |
+| `scripts/init.sh` | Creates downstream projects from `template/` plus a selected variant. |
+| `scripts/log-change.sh` | Writes material changes to `CHANGELOG.md`; also copied into generated projects. |
+| `scripts/check.sh` | Runs Mantle source hygiene and generated-project smoke checks. |
 | `template/` | Base files copied into every generated project. |
-| `variants/` | Optional shallow overlays: `research`, `python`, `react-vite`, `nextjs`. |
-| `scripts/log-change.sh` | Changelog writer used by Mantle itself and copied into generated projects. |
-| `AGENTS.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`, `CONTRIBUTING.md` | Mantle's own project docs. Generated projects receive their own versions from `template/`. |
+| `variants/` | Optional stack overlays. See `variants/README.md`. |
+| `MANIFEST.md` | Source-tree and generated-output map. |
+| `AGENTS.md` | Canonical agent contract for Mantle itself. |
+| `CHANGELOG.md` | Append-only material history. |
+| `DECISIONS.md` | Append-only ADR log. |
+| `FUTURE.md` | Admission rules and deferred ideas. |
 
-## Variants
-
-Each `variants/<name>/` is a shallow overlay consumed by `scripts/init.sh`. Pick one or none.
-
-- **`research/`** — for scrapers, data pipelines, investigative projects. Ships `SESSION-LOG.md`, `config.yaml`, `runs/` pattern.
-- **`python/`** — minimal Python package skeleton with `pyproject.toml`, `src/`, and `tests/`.
-- **`react-vite/`** — minimal Vite + shadcn + Tailwind v4 skeleton.
-- **`nextjs/`** — minimal App Router skeleton.
-
-## Optional MCP servers
-
-`.mcp.json` ships with Context7 and Exa only (no secrets needed). To enable Supabase, Apify, or others, see `.env.example` for copy-paste snippets.
-
-## Changelog
-
-Any agent (or you) should bump `CHANGELOG.md` after major changes:
-
-```bash
-scripts/log-change.sh --topic "auth rewrite" --added "magic-link login" --removed "password reset"
-```
-
-Same-day same-topic calls reuse the existing block. Exact duplicate bullets are deduped.
-
-## Manual Variant Use
-
-You can still copy a variant by hand for an existing project. Each `variants/<name>/README.md` lists the exact files to copy.
-
-## Generated Output
+## Generated Project Shape
 
 A generated project includes:
 
-- agent entrypoints (`AGENTS.md`, `CLAUDE.md`, `.codex/`, `.cursor/`, `.kilocode/`, `.opencode/`)
-- repo docs (`README.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`)
-- shared changelog script (`scripts/log-change.sh`)
-- selected stack files from `variants/<name>/`
+- agent entrypoints: `AGENTS.md`, `CLAUDE.md`, `.codex/`, `.cursor/`, `.kilocode/`, `.opencode/`
+- repo docs: `README.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`, `CONTRIBUTING.md`
+- maintenance scripts: `scripts/log-change.sh`, `scripts/check.sh`
+- `skills/README.md`
+- optional stack files from exactly one variant
 
-It does not include Mantle's source README, Mantle's changelog history, `template/`, `variants/`, or `scripts/init.sh`.
+A generated project does not include Mantle's own README, Mantle changelog history, `template/`, `variants/`, or `scripts/init.sh`.
 
-## When to skip Mantle
+## Variants
 
-If you're shipping a one-file script or a throwaway prototype, this is overkill. Mantle pays off when an agent will pick the project back up days or weeks later and needs to orient itself fast.
+| Variant | Purpose |
+|---|---|
+| `none` | Plain project harness with no stack starter. |
+| `python` | Minimal Python package skeleton with `pyproject.toml`, `src/`, and `tests/`. |
+| `research` | Research, scraping, and pipeline projects with `SESSION-LOG.md`, `config.yaml`, and `runs/`. |
+| `react-vite` | React + Vite + TypeScript + Tailwind v4 starter. |
+| `nextjs` | Next.js App Router + TypeScript + Tailwind v4 starter. |
+
+Each `variants/<name>/README.md` documents its copied files and verification rule.
+
+## Maintenance Workflow
+
+Before claiming Mantle source changes done:
+
+```bash
+scripts/check.sh
+```
+
+After material changes:
+
+```bash
+scripts/log-change.sh --topic "maintenance scaffold" --added "scripts/check.sh verifies source hygiene"
+```
+
+For decisions, prepend a new ADR in `DECISIONS.md`. Do not edit accepted ADRs except to mark them superseded by a newer ADR.
+
+## Optional MCP Servers
+
+`.mcp.json` ships with Context7 and Exa only. They require no secrets in this repo. Optional secret-backed servers such as Supabase or Apify are documented in `.env.example` as snippets to copy when needed.
+
+## When To Skip Mantle
+
+Skip Mantle for one-file scripts or throwaway prototypes. It pays off when an agent or human will return later and needs to understand project state quickly.

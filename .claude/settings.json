@@ -12,6 +12,8 @@
       "Bash(cat:*)",
       "Bash(jq:*)",
       "Bash(tree:*)",
+      "Bash(./scripts/check.sh:*)",
+      "Bash(scripts/check.sh:*)",
       "Bash(./scripts/log-change.sh:*)",
       "Bash(scripts/log-change.sh:*)",
       "mcp__context7__*",

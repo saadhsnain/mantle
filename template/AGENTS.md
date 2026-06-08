@@ -101,6 +101,7 @@ Stack-specific conventions may be appended below by the selected Mantle variant.
 For this generated project, "done" means:
 
 - Run the checks that match the project stack before claiming behavioral changes done.
+- Run `scripts/check.sh` for baseline scaffold hygiene.
 - Material changes are reflected in `CHANGELOG.md`.
 - If a stack-specific convention block is appended below, follow its verification rule.
 

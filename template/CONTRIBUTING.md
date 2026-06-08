@@ -5,8 +5,7 @@
 Run the checks that match this project's stack before committing. At minimum:
 
 ```bash
-bash -n scripts/log-change.sh
-jq . .mcp.json > /dev/null
+scripts/check.sh
 ```
 
 For Python projects:

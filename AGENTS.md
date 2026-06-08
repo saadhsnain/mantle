@@ -13,8 +13,10 @@ You are an agent (Claude, Codex, Cursor, KiloCode, OpenCode, DeepSeek, Kimi, or 
 Mantle's source layout:
 
 - `scripts/init.sh` creates downstream projects.
+- `scripts/check.sh` verifies Mantle source hygiene and generated-project smoke behavior.
 - `template/` contains the base files copied into every generated project.
 - `variants/` contains optional stack overlays.
+- `MANIFEST.md` maps source files and generated output.
 - Root docs (`README.md`, `AGENTS.md`, `CHANGELOG.md`, `DECISIONS.md`, `FUTURE.md`, `CONTRIBUTING.md`) describe Mantle itself.
 
 Two stable principles:
@@ -108,6 +110,12 @@ Generated-project defaults live in `template/`. Variant-specific conventions liv
 "Done" depends on the variant. Each `variants/<name>/` ships with a README that defines what to run before claiming a task complete (typecheck, test, dev-server boot, etc.).
 
 For projects without a variant: at minimum, the code should compile/run and the change should be reflected in CHANGELOG.md.
+
+For Mantle itself, run:
+
+```bash
+scripts/check.sh
+```
 
 ---
 

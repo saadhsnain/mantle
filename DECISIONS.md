@@ -18,6 +18,18 @@ Multi-scope projects use `##`-level scope headings here rather than separate fol
 
 ---
 
+## ADR-0005 — Baseline checks are first-class scaffold files   (2026-06-06 · Status: Accepted)
+
+**Context** — Mantle had a documented local-check sequence in `CONTRIBUTING.md`, but no single command to run it. Generated projects also had `scripts/log-change.sh` but no equivalent baseline verification script.
+**Decision** — Add `scripts/check.sh` to Mantle source and `template/scripts/check.sh` to generated projects. Mantle's script verifies shell syntax, MCP JSON, script parity, source hygiene, redirect files, and a generated-project smoke test. The generated-project script verifies shell syntax, MCP JSON when `jq` exists, and `.DS_Store` hygiene.
+**Consequences** — Future agents can run one canonical check before claiming Mantle maintenance done. Stack-specific checks still live in variant docs and are not folded into the base script.
+
+## ADR-0004 — Mantle keeps a source manifest and variant registry   (2026-06-06 · Status: Accepted)
+
+**Context** — Mantle's README explained the project, but there was no compact source-tree map or single registry for variants. That made future maintenance rely on reading `scripts/init.sh` and several README files.
+**Decision** — Add `MANIFEST.md` for source layout and generated-output shape. Add `variants/README.md` for variant names, purposes, checks, and rules.
+**Consequences** — Any source-layout or variant change must update these files alongside README/AGENTS as needed. The manifest is source-only and is not copied into generated projects.
+
 ## ADR-0003 — Generated projects exclude generator-only files   (2026-05-24 · Status: Accepted)
 
 **Context** — Raw copying of Mantle leaked source-only docs and stale overlays into downstream projects.

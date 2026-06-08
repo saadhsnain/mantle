@@ -19,6 +19,22 @@ Use `scripts/log-change.sh` for canonical writes — it reuses same-day same-top
 
 ---
 
+## 2026-06-06 — maintenance scaffold
+
+### Added
+- `MANIFEST.md` as the source-tree and generated-output map for Mantle.
+- `scripts/check.sh` to centralize Mantle hygiene checks and generated-project smoke testing.
+- `template/scripts/check.sh` so generated projects receive baseline scaffold checks.
+- `variants/README.md` as the variant registry and maintenance checklist.
+
+### Changed
+- README now documents Mantle's current source layout, generated project shape, variants, and maintenance workflow.
+- CONTRIBUTING now points to `scripts/check.sh` as the canonical local check.
+- AGENTS and template docs now mention baseline scaffold checks.
+
+### Removed
+- Committed `.DS_Store` files from source, template, and variant directories.
+
 ## 2026-05-29 — brain consolidation
 
 ### Added
